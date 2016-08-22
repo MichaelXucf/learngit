@@ -4,4 +4,4 @@ Git is a mutable index called stage.
 Git tracks changes
 Git doesn't tracks files
 Creating a new branch is quick.
-can i switch branch without stash
+Can i switch branch without stash ?
