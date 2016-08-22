@@ -5,3 +5,4 @@ Git tracks changes
 Git doesn't tracks files
 Creating a new branch is quick and simple.
 add merge 
+Can i switch branch without stash ?
