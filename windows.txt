@@ -1,0 +1,25 @@
+1、为项目添加 http/https 代理
+git config http.proxy http://127.0.0.1:8087
+git config https.proxy http://127.0.0.1:8087
+
+#如果要为git的所有项目都设置代理，可以使用全局设置(--globla表示全局设置)
+git config --global http.proxy http://127.0.0.1:8087
+git config --global https.proxy http://127.0.0.1:8087
+
+查看设置是否成功，使用--get来获取et 来进行配置：
+git config --global --unset http.proxy
+git config --get --global http.proxy
+
+删除掉原有的代理配置，此时需要使用 --unset 来进行配置:
+git config --global --unset http.proxy
+
+
+如果使用了HTTPS，肯定会碰到HTTPS 证书错误的情况，比如提示： SSL certificate problem 。。。，此时，可以尝试将 sslVerify 设置为 false:
+git config --global http.sslVerity false
+
+2、为项目添加ssh代理
+
+
+3、windows使用git时出现：warning: LF will be replaced by CRLF
+windows中的换行符为 CRLF， 而在linux下的换行符为LF，所以在执行add . 时出现提示，解决办法：
+git config --global core.autocrlf false  //禁用自动转换
