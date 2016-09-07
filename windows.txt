@@ -6,8 +6,7 @@ git config https.proxy http://127.0.0.1:8087
 git config --global http.proxy http://127.0.0.1:8087
 git config --global https.proxy http://127.0.0.1:8087
 
-查看设置是否成功，使用--get来获取et 来进行配置：
-git config --global --unset http.proxy
+查看设置是否成功，使用--get来获取来进行配置：
 git config --get --global http.proxy
 
 删除掉原有的代理配置，此时需要使用 --unset 来进行配置:
@@ -18,6 +17,32 @@ git config --global --unset http.proxy
 git config --global http.sslVerity false
 
 2、为项目添加ssh代理
+一种方式是通过 ssh over https port，把地址由
+git@github.com/username/projectname.git
+改成
+git@ssh.github.com/username/projectname.git
+检查是否成功:
+> ssh -T -p 443 git@ssh.github.com
+
+Hi username! You've successfully authenticated, but GitHub does not 
+provide shell access.
+
+
+参考 https://help.github.com/articles/using-ssh-over-the-https-port/
+
+另一种是配置代理:
+ 1) 配置一个 proxy-wrapper 脚本
+   cat > $HOME/bin/proxy-wrapper
+   #!/bin/bash
+   nc -x127.0.0.1:7080 -X5 $*
+ 2)给它增加一个可执行权限
+   chmod +x $HOME/bin/proxy-wrapper
+
+ 3)配置 .ssh/config , 对 github.com 设置一个代理命令
+   Host github github.com    
+       Hostname github.com    
+       User git    
+       ProxyCommand $HOME/bin/proxy-wrapper '%h %p'
 
 
 3、windows使用git时出现：warning: LF will be replaced by CRLF
